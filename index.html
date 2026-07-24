@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Havale / EFT Bilgileri</title>
+
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-hover: #115e59;
+            --bg: #f5f7fa;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .05);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ecfdf5;
+            color: #047857;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            margin-bottom: 18px;
+        }
+
+        .info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .label {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .value {
+            font-size: 16px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .iban {
+        	width: 100%;
+            background: #f9fafb;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 14px;
+            line-height: 1.6;
+            font-weight: 700;
+            letter-spacing: .5px;
+            text-align: center;
+        }
+        
+        .whatsapp {
+            bottom: 14px !important;
+    right: 16px !important;
+    box-sizing: border-box;
+    position: fixed !important;
+    z-index: 16000160 !important;
+    direction: ltr;
+    text-align: left;
+    display: false;
+    align-items: false;
+    flex-direction: row-reverse;
+            display: block;
+    flex-shrink: 0;
+    opacity: 1;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    order: 1;
+    padding: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: rgba(136, 136, 136, 0.4) 0px 1px 7px;
+    transition: 0.5s;
+    position: fixed;
+    z-index: 200;
+    text-decoration: none !important;
+    background-color: rgb(77, 194, 71) !important;}
+
+        button {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--primary);
+            color: white;
+            transition: .2s;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            background: #111827;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 999px;
+            opacity: 0;
+            transition: .3s;
+            pointer-events: none;
+            font-size: 14px;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        @media(min-width:700px) {
+
+            body {
+                padding: 40px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Diliballı Boya</h1>
+            <h5>💳 Havale / EFT</h5>
+            <br>
+            <p>Ödeme yapmak istediğiniz hesabı seçebilirsiniz.</p>
+        </div>
+
+        <div class="card">
+
+            <div class="badge">
+                Şahsi Hesap
+            </div>
+
+            <h2>Garanti BBVA</h2>
+
+            <div class="info">
+                <div class="label">Alıcı</div>
+                <div class="value">Burak Diliballı</div>
+            </div>
+
+            <div class="info">
+                <div class="label">IBAN</div>
+
+                <div class="iban" id="iban1">
+                    TR69 0006 2000 6020 0006 8822 08
+                </div>
+
+                <button onclick="copyIBAN('TR690006200060200006882208')">
+                    IBAN'ı Kopyala
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="badge">
+                Resmi Hesap
+            </div>
+
+            <h2>Garanti BBVA</h2>
+
+            <div class="info">
+                <div class="label">Ünvan</div>
+                <div class="value">AHMET DİLİBALLI VE ORTAĞI</div>
+            </div>
+
+            <div class="info">
+                <div class="label">IBAN</div>
+
+                <div class="iban">
+                    TR27 0006 2000 0070 0006 2885 16
+                </div>
+
+                <button onclick="copyIBAN('TR270006200000700006288516')">
+                    IBAN'ı Kopyala
+                </button>
+
+            </div>
+
+            <div class="info">
+                <div class="label">Şube Kodu</div>
+                <div class="value">7</div>
+            </div>
+
+            <div class="info">
+                <div class="label">Hesap No</div>
+                <div class="value">6288516</div>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="badge">
+                İletişim
+            </div>
+
+            <h2>AHMET DİLİBALLI VE ORTAĞI</h2>
+
+            <div class="info">
+                <div class="label">Telefon 1</div>
+                <div class="value">
+                    <a href="tel:+902425112890">0 (242) 511 28 90</a>
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="label">Telefon 2</div>
+                <div class="value">
+                    <a href="tel:+902425135223">0 (242) 513 52 23</a>
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="label">Fax</div>
+                <div class="value">
+                    0 (242) 511 82 99
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="label">E-posta</div>
+                <div class="value">
+                    <a href="mailto:diliballiboya@hotmail.com">
+                        diliballiboya@hotmail.com
+                    </a>
+                </div>
+            </div>
+
+            <button onclick="window.open('https://maps.app.goo.gl/wRyFgLEMUzGBaEfk8','_blank')">
+                📍 Konumu Aç
+            </button>
+
+        </div>
+
+        <div class="footer">
+          Tüm hakları saklıdır © 2022 Diliballı Boya
+        </div>
+
+    </div>
+
+    <div class="toast" id="toast">
+        IBAN panoya kopyalandı.
+    </div>
+    
+    <a size="50" href="https://wa.me/905327695979" target="_blank" aria-label="Go to whatsapp" color="#4dc247" id="" direction="column" order="whatsapp" class="whatsapp"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 100%; height: 100%; fill: rgb(255, 255, 255); stroke: none;"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l5.974-1.92a10.807 10.807 0 0 0 16.03-9.455c0-5.958-4.842-10.8-10.802-10.8z"></path></svg></a>
+
+    <script>
+        function copyIBAN(text) {
+
+            navigator.clipboard.writeText(text);
+
+            const toast = document.getElementById("toast");
+
+            toast.classList.add("show");
+
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 1800);
+
+        }
+    </script>
+
+</body>
+
+</html>
